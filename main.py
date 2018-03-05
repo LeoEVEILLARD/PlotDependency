@@ -5,11 +5,7 @@ import sys
 from ForHeaders import *
 from ForCMake   import *
 
-from Tkinter.filedialog import askdirectory
 
-
-dir = "./testDir2"
-dir=askdirectory()
 
 OK= False
 while OK != True:
@@ -24,6 +20,21 @@ while OK != True:
         OK = True
     else:
         print("please quick enter 'CMake' of 'headers', we've got a lot of stuff to do ")
+
+
+
+dir = "./testDir2"
+OK= False
+while OK != True:
+    if   (sys.version_info[0] == 2): # python 2
+        dir = raw_input("Please enter a path : ")
+    elif (sys.version_info[0] == 3): # python 3
+        dir =     input("Please enter a path : ")
+    else:
+        print("Seriously man, on what computer are you running this script ?")
+    OK = True
+    #toDo : path exist check
+
 
 ListHeaders          = [];
 dictExternDependency = {}
