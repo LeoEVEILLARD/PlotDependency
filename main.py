@@ -5,8 +5,11 @@ import sys
 from ForHeaders import *
 from ForCMake   import *
 
+from Tkinter.filedialog import askdirectory
+
 
 dir = "./testDir2"
+dir=askdirectory()
 
 OK= False
 while OK != True:
