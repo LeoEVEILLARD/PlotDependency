@@ -1,11 +1,26 @@
 
 ########### find header files
 import os
+import sys
 from ForHeaders import *
 from ForCMake   import *
 
 
 dir = "./testDir2"
+
+OK= False
+while OK != True:
+    if   (sys.version_info[0] == 2): # python 2
+        choice = raw_input("Please enter CMake or headers : ")
+    elif (sys.version_info[0] == 3): # python 3
+        choice =     input("Please enter CMake or headers : ")
+    else:
+        print("Seriously man, on what computer are you running this script ?")
+
+    if(choice == "CMake" or choice == "headers"):
+        OK = True
+    else:
+        print("please quick enter 'CMake' of 'headers', we've got a lot of stuff to do ")
 
 ListHeaders          = [];
 dictExternDependency = {}
@@ -15,11 +30,11 @@ if __name__ == "__main__":
 
     print("######### début phase de recherche des headers.")
     
-    choice = "CMake"
+
     
-    if   choice is "headers":
+    if   choice == "headers":
         ListHeaders, dictExternDependency , dictInternDependency = FindHeaders(dir)
-    elif choice  is "CMake":
+    elif choice  == "CMake":
         ListHeaders, dictExternDependency , dictInternDependency = FindCMakeLists(dir)
 
 
@@ -32,9 +47,9 @@ if __name__ == "__main__":
 
     print("######### début phase de regex des headers.")
     
-    if   choice is "headers":
+    if   choice == "headers":
         dictExternDependency , dictInternDependency = GrepHeadersContent(ListHeaders,  dictExternDependency , dictInternDependency)
-    elif choice  is "CMake":
+    elif choice  == "CMake":
         dictExternDependency , dictInternDependency = GrepCMakeContent(ListHeaders,  dictExternDependency , dictInternDependency)
 
 
