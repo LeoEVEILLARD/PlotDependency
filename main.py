@@ -5,7 +5,7 @@ from ForHeaders import *
 from ForCMake   import *
 
 
-dir = "./testDir1"
+dir = "./testDir2"
 
 ListHeaders          = [];
 dictExternDependency = {}
@@ -14,9 +14,14 @@ dictInternDependency = {}
 if __name__ == "__main__":
 
     print("######### début phase de recherche des headers.")
+    
+    choice = "CMake"
+    
+    if   choice is "headers":
+        ListHeaders, dictExternDependency , dictInternDependency = FindHeaders(dir)
+    elif choice  is "CMake":
+        ListHeaders, dictExternDependency , dictInternDependency = FindCMakeLists(dir)
 
-
-    ListHeaders, dictExternDependency , dictInternDependency = FindHeaders(dir)
 
 
     print("\nlist of header : \n", *ListHeaders, sep='\n- ')
@@ -26,9 +31,14 @@ if __name__ == "__main__":
     ########### regex on file to find dependency
 
     print("######### début phase de regex des headers.")
+    
+    if   choice is "headers":
+        dictExternDependency , dictInternDependency = GrepHeadersContent(ListHeaders,  dictExternDependency , dictInternDependency)
+    elif choice  is "CMake":
+        dictExternDependency , dictInternDependency = GrepCMakeContent(ListHeaders,  dictExternDependency , dictInternDependency)
 
-    dictExternDependency , dictInternDependency = GrepHeadersContent(ListHeaders,  dictExternDependency , dictInternDependency)
 
+    print("##########################DEBUG", dictInternDependency)
     print("######### fin phase de regex des headers.")
 
     ########### plot dependency in graph
