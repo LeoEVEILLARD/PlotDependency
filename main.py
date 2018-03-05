@@ -13,7 +13,7 @@ dictInternDependency = {}
 for root, dir, files in os.walk(dir):
     for file in files:
         if file.endswith(".h") or file.endswith(".hpp") or file.endswith(".hxx"):
-            print("Header trouvé :", os.path.join(root,file))
+            #print("Header trouvé :", os.path.join(root,file))
             ListHeaders.append(os.path.join(root,file))
             dictExternDependency[file] = [];
             dictInternDependency[file] = [];
@@ -40,7 +40,7 @@ for header in ListHeaders:
             elif '"' in line:
                 name = line.split('"')[1];
                 #print(os.path.basename(header))
-                if name.endswith(".h"): dictInternDependency[os.path.basename(header)].append(name);
+                if name.endswith(".h"): dictInternDependency[os.path.basename(header)].append(name); #exclude cpp
                 #print("dependance interne trouvée : ", name)
 
 #print("######### fin phase de regex des headers.")
